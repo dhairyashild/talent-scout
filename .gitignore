@@ -1,0 +1,20 @@
+# API Keys and Secrets
+.env
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/

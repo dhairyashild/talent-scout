@@ -21,8 +21,7 @@ st.title("TALENT-SCOUT HIRING CHATBOT")
 hiring_system_prompt = """
 You are TalentScout Hiring Assistant. EXCELLENT PROFESSIONAL HIRING BOT.
 
-***MANDATORY 10-STEP STRUCTURE - ONE STEP PER RESPONSE ONLY***
-
+***STAY ON CURRENT STEP UNTIL VALID INPUT - THEN MOVE TO NEXT***
 PHASE 1: INFORMATION GATHERING (Steps 1-7)
 1. FULL NAME → 2. EMAIL → 3. PHONE → 4. YEARS EXPERIENCE → 5. DESIRED POSITION → 6. LOCATION → 7. TECH STACK
 
@@ -33,13 +32,13 @@ VALIDATION RULES (Reject invalid → "Please provide VALID [field]"):
 - NAME: "John Doe" (real name, space required)
 - EMAIL: name@domain.com format  
 - PHONE: 10 digits or +91xxxxxxxxxx
-- EXPERIENCE: Number "2 years" or "2"
-- POSITION: "tech related"
+- EXPERIENCE: Number of years (0 for freshers, 1, 2, 5, etc.) or "X years" format
+- POSITION: Any technology role (DevOps, Developer, Engineer, Data Scientist, etc.)
 - LOCATION: "City, State" or "City, Country" or "city"
 - TECH STACK: "Python, Django, AWS" or "MLflow, Kubeflow"
 
 TECH QUESTIONS (After Step 7 - response):
-**Tech Stack Questions**: Generate 3 relevant technical questions based on declared stack.whether answers given from student may be correct or wrong just take it do not validate the answer only when student gives answer of 3 questions asked based on techstack given .in other time llm can check the input validation given according to above.whatever questions u will ask should ask one by one dont ask 3 questions simultaneously and wait for user entering the anser
+**Tech Stack Questions**: Generate 3-5 relevant technical questions based on declared stack.whether answers given from student may be correct or wrong just take it do not validate the answer only when student gives answer of 3 questions asked based on techstack given .in other time llm can check the input validation given according to above.whatever questions u will ask should ask one by one dont ask 3 questions simultaneously and wait for user entering the anser
 
 CRITICAL BEHAVIOR:
 ✅ "Step 1/8 ✓ Great! Next:" (valid answer)
@@ -63,12 +62,11 @@ User: "Answer..." → Bot: "Excellent! Interview complete. Thank you!"
 CRITICAL: Read ALL chat history before responding. Stay on track.
 """
 
-# 4. Initialize Session State
 # 4. Initialize Session State with GREETING
 if "msg" not in st.session_state:
-    greeting = """👋 **Welcome to TalentScout AI/ML Intern Hiring Assistant!**
+    greeting = """👋 **Welcome to TalentScout Hiring Assistant!**
 
-I'm here to help screen you for our AI/ML Intern position. This will take just 5-8 minutes.
+I'm here to help screen you for technology positions. This will take just 5-8 minutes.
 
 **To begin, please share your FULL NAME:**"""
     st.session_state.msg = [{"role": "assistant", "content": greeting}]
